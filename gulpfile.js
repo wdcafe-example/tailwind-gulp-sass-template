@@ -6,7 +6,6 @@ const cssMin = require('gulp-css');
 const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
 const clean = require('gulp-clean');
-const sourcemaps = require('gulp-sourcemaps');
 const browserSync = require('browser-sync').create();
 const { exec } = require('child_process');
 const { src, dest, series, parallel, watch } = require('gulp');
@@ -41,7 +40,7 @@ function cssTask(){
   return src('./dist/css/*.css')
   .pipe(concat('main.css'))
   .pipe(cssMin())
-  .pipe(gulp.dest('./public/css'));
+  .pipe(gulp.dest('./publish/css'));
 }
 
 
@@ -53,12 +52,12 @@ function jsTask(){
   ])
   .pipe(concat('main.js'))
   .pipe(uglify())
-  .pipe(gulp.dest('./public/js'));
+  .pipe(gulp.dest('./publish/js'));
 }
 
 // Clean Task - dist 폴더 삭제 작업
 function cleanDist() {
-  return src('public', { allowEmpty: true })
+  return src('publish', { allowEmpty: true })
     .pipe(clean());
 }
  
@@ -69,7 +68,7 @@ function cleanDist() {
 // }
 
 function copyHtml(){
-  return src('./dist/*').pipe(gulp.dest('./public/'));
+  return src('./dist/*').pipe(gulp.dest('./publish/'));
 }
 
 // function copyImage(){
